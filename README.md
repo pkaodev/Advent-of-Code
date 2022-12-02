@@ -3,5 +3,5 @@
 <!--- advent_readme_stars table --->
 
 ## Language(s) used
-- **2022** - GO
+- **2022** - GO, JavaScript
 - **2021** - Python

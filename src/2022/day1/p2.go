@@ -15,7 +15,7 @@ func main() {
 
 	var currentElfCalories int;
 
-	file, err1 := os.Open("./input.txt")
+	file, err1 := os.Open("./test-input.txt")
 
 	if err1 != nil {
 		log.Fatal(err1)

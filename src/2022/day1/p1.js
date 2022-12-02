@@ -4,7 +4,7 @@ const readFileSync = require('fs').readFileSync;
 const data = readFileSync('./test-input.txt', 'utf8')
 
 //split string into array of strings at end of line
-const lines = data.split(/\r?\n/);
+const lines = data.split(/\n/);
 
 const highestAndCurrentObj = lines.reduce((currVals, currSnack) => {
 
