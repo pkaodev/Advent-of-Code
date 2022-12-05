@@ -1,16 +1,9 @@
 package main
 
-import (
-	"fmt"
-	"bufio"
-	"log"
-	"os"
-)
+import ("fmt";"bufio";"log";"os")
 
 func main() {
-
 	score := 0;
-
 	myMoveScore := map[string]int{
 		"X": 1,	//rock
 		"Y": 2,	//paper
@@ -36,23 +29,15 @@ func main() {
 	}
 
 	file, err1 := os.Open("./input.txt")
-
-	if err1 != nil {
-		log.Fatal(err1)
-	}
-
+	if err1 != nil {log.Fatal(err1)}
 	defer file.Close()
-
 	scanner := bufio.NewScanner(file)
 
 	for scanner.Scan() {
-
 		currEnemyMove := string(scanner.Text()[0])
 		currMyMove := string(scanner.Text()[2])
-
 		score += myMoveScore[currMyMove]
 		score += matchOutcomeScore[currEnemyMove][currMyMove]
 	}
-
 	fmt.Println(score)
 }
