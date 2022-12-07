@@ -1,7 +1,7 @@
 const readFileSync = require('fs').readFileSync;
 const lines = readFileSync('./input.txt', 'utf8').split(/\n/)
 
-//create boxState
+//create initial state from input
 const setupEndIndex = lines.indexOf('') - 1
 const boxState = [];
 
@@ -19,7 +19,7 @@ for (let i = 0; i < setupEndIndex; i++) {
 }
 
 
-//2 move
+//2 solve things
 for (let i = setupEndIndex + 2; i < lines.length; i++) {
 
     const [howMany, from, to] = lines[i].split(' ').filter(value => !isNaN(parseInt(value)))
