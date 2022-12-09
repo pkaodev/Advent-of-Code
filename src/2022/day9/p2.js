@@ -1,50 +1,41 @@
 const readFileSync = require('fs').readFileSync;
 const instructions = readFileSync('./input.txt', 'utf8').split(/\n/)
 
-//store coordinates of all knots
-const currPos = {
-    0: { x: 0, y: 0 },  //head
-    1: { x: 0, y: 0 },
-    2: { x: 0, y: 0 },
-    3: { x: 0, y: 0 },
-    4: { x: 0, y: 0 },
-    5: { x: 0, y: 0 },
-    6: { x: 0, y: 0 },
-    7: { x: 0, y: 0 },
-    8: { x: 0, y: 0 },
-    9: { x: 0, y: 0 }   //tail
-}
+//2/10 for part 1/2
+const numberofKnots = 10;
+
+//array of arrays representing [x,y] coordinates of each knot.  index 0 is head
+const currentPositions = new Array(numberofKnots).fill(0).map( x => [0,0] )
 
 //coordinates visited by tail
 const visited = ['0,0'];
 
-//moves a knot
-const move = (position, direction) => {
+const moveKnot = (index, direction) => {
     switch (direction) {
-        case 'U':
-            currPos[`${position}`].y++;
+        case 'U':   //up
+            currentPositions[index][1]++;
             break;
-        case 'R':
-            currPos[`${position}`].x++;
+        case 'R':   //right
+            currentPositions[index][0]++;
             break;
-        case 'D':
-            currPos[`${position}`].y--;
+        case 'D':   //down
+            currentPositions[index][1]--;
             break;
-        case 'L':
-            currPos[`${position}`].x--;
+        case 'L':   //left
+            currentPositions[index][0]--;
             break;
     }
 }
 
-//updates knot coordinates based on the knot ahead of it
-const updateKnot = (knotNum) => {
+//updated non-head knot based on knot ahead of it
+const updateKnot = (index) => {
 
-    //positive is 'head' to right
-    const xDis = currPos[`${knotNum - 1}`].x - currPos[`${knotNum}`].x
-    //positive is 'head' above
-    const yDis = currPos[`${knotNum - 1}`].y - currPos[`${knotNum}`].y
+    //+ve means knot closer to head is to the right 
+    const xDis = currentPositions[index - 1][0] - currentPositions[index][0];
+    //+ve means knot closer to head is above
+    const yDis = currentPositions[index - 1][1] - currentPositions[index][1];
 
-    //stop if tail is adjacent to head
+    //stop if knots are adjacent
     if (Math.abs(xDis) <= 1 && Math.abs(yDis) <= 1) {
         return;
     }
@@ -52,64 +43,58 @@ const updateKnot = (knotNum) => {
     //moving only horizontally
     if (yDis === 0) {
         if (xDis === 2) {
-            move(knotNum, 'R')
+            moveKnot(index, 'R')
         } else {
-            move(knotNum, 'L')
+            moveKnot(index, 'L')
         }
 
         //moving only vertically
     } else if (xDis === 0) {
         if (yDis === 2) {
-            move(knotNum, 'U')
+            moveKnot(index, 'U')
         } else {
-            move(knotNum, 'D')
+            moveKnot(index, 'D')
         }
 
 
         //moving diagonally
     } else {
-
-        //right
         if (xDis > 0) {
-            move(knotNum, 'R')
+            moveKnot(index, 'R')
         }
-
-        //left
         if (xDis < 0) {
-            move(knotNum, 'L')
+            moveKnot(index, 'L')
         }
-
-        //up
         if (yDis > 0) {
-            move(knotNum, 'U')
+            moveKnot(index, 'U')
         }
-
-        //down
         if (yDis < 0) {
-            move(knotNum, 'D')
+            moveKnot(index, 'D')
         }
-
     }
 }
 
-
 instructions.forEach(line => {
+
     let [direction, iterations] = line.split(' ').map((x, i) => i === 1 ? parseInt(x) : x);
 
     while (iterations) {
 
-        move(0, direction)
+        //move head
+        moveKnot(0, direction)
 
-        for (let i = 1; i <=9; i++) {
+        //move rest of knots
+        for (let i = 1; i <=numberofKnots-1; i++) {
             updateKnot(i)
         }
 
-        visited.push(`${currPos[9].x},${currPos[9].y}`)
+        //add position of tail to visited
+        visited.push(`${currentPositions[numberofKnots-1]}`)
 
         iterations--;
     }
 
 })
 
-
+console.log(visited)
 console.log(new Set(visited).size)
