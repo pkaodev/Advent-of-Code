@@ -10,6 +10,7 @@ const currentPositions = new Array(numberofKnots).fill(0).map( x => [0,0] )
 //coordinates visited by tail
 const visited = ['0,0'];
 
+//move a knot in a given direction
 const moveKnot = (index, direction) => {
     switch (direction) {
         case 'U':   //up
@@ -27,7 +28,7 @@ const moveKnot = (index, direction) => {
     }
 }
 
-//updated non-head knot based on knot ahead of it
+//update non-head knot based on knot ahead of it
 const updateKnot = (index) => {
 
     //+ve means knot closer to head is to the right 
@@ -35,48 +36,31 @@ const updateKnot = (index) => {
     //+ve means knot closer to head is above
     const yDis = currentPositions[index - 1][1] - currentPositions[index][1];
 
-    //stop if knots are adjacent
+    //don't move if knots are adjacent
     if (Math.abs(xDis) <= 1 && Math.abs(yDis) <= 1) {
         return;
     }
 
-    //moving only horizontally
-    if (yDis === 0) {
-        if (xDis === 2) {
-            moveKnot(index, 'R')
-        } else {
-            moveKnot(index, 'L')
-        }
-
-        //moving only vertically
-    } else if (xDis === 0) {
-        if (yDis === 2) {
-            moveKnot(index, 'U')
-        } else {
-            moveKnot(index, 'D')
-        }
-
-
-        //moving diagonally
-    } else {
-        if (xDis > 0) {
-            moveKnot(index, 'R')
-        }
-        if (xDis < 0) {
-            moveKnot(index, 'L')
-        }
-        if (yDis > 0) {
-            moveKnot(index, 'U')
-        }
-        if (yDis < 0) {
-            moveKnot(index, 'D')
-        }
+    //move closer to knot ahead in x- and/or y-direction
+    if (xDis > 0) {
+        moveKnot(index, 'R')
+    }
+    if (xDis < 0) {
+        moveKnot(index, 'L')
+    }
+    if (yDis > 0) {
+        moveKnot(index, 'U')
+    }
+    if (yDis < 0) {
+        moveKnot(index, 'D')
     }
 }
 
+//main loop
 instructions.forEach(line => {
 
-    let [direction, iterations] = line.split(' ').map((x, i) => i === 1 ? parseInt(x) : x);
+    let [direction, iterations] = line.split(' ');
+    iterations = parseInt(iterations);
 
     while (iterations) {
 
@@ -93,8 +77,7 @@ instructions.forEach(line => {
 
         iterations--;
     }
-
 })
 
-console.log(visited)
+//unique locations visited by tail
 console.log(new Set(visited).size)
