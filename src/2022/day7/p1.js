@@ -53,7 +53,7 @@ for (let i = 1; i < lines.length; i++) {
 console.log(fileSystem)
 
 
-//2. sum up all the files in the file system
+//2. PART 1 sum up all the files in the file system
 const filesUnder100KB = []
 
 function sumUpDirectories(obj) {
@@ -75,9 +75,7 @@ function sumUpDirectories(obj) {
 }
 
 sumUpDirectories(fileSystem)
-
 let sum = filesUnder100KB.reduce((a, b) => a + b, 0)
-
 console.log(sum)
 
 

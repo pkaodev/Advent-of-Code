@@ -52,15 +52,40 @@ for (let i = 1; i < lines.length; i++) {
 
 console.log(fileSystem)
 
+//2. PART 1 sum up all the files in the file system
+const filesUnder100KB = []
+
+function sumUpDirectories1(obj) {
+    let directorySum = 0;
+
+    for (let key in obj) {
+        if (typeof obj[key] === 'object') {
+            directorySum += sumUpDirectories1(obj[key])
+        } else {
+            directorySum += obj[key]
+        }
+    }
+
+    if (directorySum <= 100000) {
+        filesUnder100KB.push(directorySum)
+    }
+
+    return directorySum
+}
+
+sumUpDirectories1(fileSystem)
+let sum = filesUnder100KB.reduce((a, b) => a + b, 0)
+console.log(sum)
 
 
-function sumUpDirectories(obj) {
+//2. PART 2 find directory to delete
+function sumUpDirectories2(obj) {
 
     const allDirectories = [0]
 
     for (let key in obj) {
         if (typeof obj[key] === 'object') {
-            sumUpDirectories(obj[key]).forEach(dirSum => allDirectories.push(dirSum))
+            sumUpDirectories2(obj[key]).forEach(dirSum => allDirectories.push(dirSum))
         } else {
             allDirectories[0] += obj[key]
         }
@@ -69,7 +94,7 @@ function sumUpDirectories(obj) {
     return allDirectories
 }
 
-const allDirectories = sumUpDirectories(fileSystem)
+const allDirectories = sumUpDirectories2(fileSystem)
 
 allDirectories.sort((a, b) => a - b)
 
@@ -79,8 +104,3 @@ allDirectories.sort((a, b) => a - b)
             break
         }
     }
-
-
-
-
-
