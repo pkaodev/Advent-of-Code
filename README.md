@@ -25,5 +25,6 @@
 <!--- advent_readme_stars table --->
 
 ## Language(s) used
+- **2023** - Bash, Python
 - **2022** - GO, JavaScript
 - **2021** - Python
