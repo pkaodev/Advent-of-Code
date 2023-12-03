@@ -1,0 +1,38 @@
+name: Pull daily problem
+
+on:
+  schedule:
+    - cron: '30 6 1-25 12 *'
+
+jobs:
+  run-script:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v2
+      with:
+        persist-credentials: true
+
+    - name: Set up Python
+      uses: actions/setup-python@v2
+      with:
+        python-version: '3.8'
+
+    - name: Install dependencies
+      run: pip install requests beautifulsoup4
+
+    - name: Run pull_daily_problem.py
+      env:
+        GH_EMAIL: ${{ secrets.GH_EMAIL }}
+        GH_PASSWORD: ${{ secrets.GH_PASSWORD }}
+        IS_GITHUB_ACTION: 'true'
+      run: python pull_daily_problem.py
+
+    - name: Commit and push changes
+        run: |
+          git config --global user.name 'github-action[bot]'
+          git config --global user.email '${{ secrets.GH_EMAIL }}'
+          git add -A
+          git commit -m "AUTO COMMIT: problem part 1 for $(date +'%Y-%m-%d')"
+          git push
