@@ -35,7 +35,8 @@ UNDERLINE = '\033[4m'
 REVERSE = '\033[7m'
 
 
-### Process Functions ###
+
+### Print Functions ###
 
 def wait_msg(message):
     def decorator(func):
@@ -64,6 +65,10 @@ def wait_msg(message):
                 raise e
         return wrapper
     return decorator
+
+
+
+### Creating Directory/Files, Pulling Problem Texts/Input ###
 
 def get_aoc_headers():
 	script_environment = os.getenv('SCRIPT_ENVIRONMENT', 'local')
@@ -121,3 +126,9 @@ def create_day_directory(year, day, problem_name):
 def save_text_to_file(text, filename, dirname):
     with open(f"{dirname}/{filename}", 'w') as file:
         file.write(text)
+
+
+
+### Submissions ###
+
+### Testing ###

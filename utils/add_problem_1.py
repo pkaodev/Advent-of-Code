@@ -1,6 +1,6 @@
 import os
 from datetime import datetime
-from util_functions import get_aoc_headers, fetch_problem_1_name_text_url, fetch_input_text, create_day_directory, save_text_to_file
+from utils import get_aoc_headers, fetch_problem_1_name_text_url, fetch_input_text, create_day_directory, save_text_to_file
 
 def add_problem_1(year, day):
     

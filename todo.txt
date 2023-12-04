@@ -6,8 +6,10 @@ different s1, s2 files for different languages -> output to output file auto.
 
 setup testing for solution1/solution2 files
 
-split pull_daily_problem.py ->
---initial text/setup for chosen language/default
---pull problem 2
---submit solution 1
---submit solution 2
+stuff to work from .language_choice file
+
+make commands:
+-run
+-test
+-submit1
+-submit2
