@@ -61,6 +61,8 @@ def login_to_github_and_authenticate_aoc():
         print("Authenticating via GitHub Action Secrets")
         gh_email = os.getenv('GH_EMAIL')
         gh_password = os.environ.get('GH_PASSWORD')
+        print(f"GH_EMAIL: {gh_email}")
+        print(f"GH_PASSWORD: {gh_password}")
      
     else:
         print("Authenticating via local .gh_login_details file")
