@@ -13,6 +13,9 @@ make commands:
 -test
 -submit1
 -submit2
+-make day 2022 -> get all for 2022
+-make day 5 2022 -> get day 5 2022
+
 
 ISSUES:
 -extra empty line added at input
