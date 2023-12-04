@@ -2,7 +2,7 @@ name: Pull daily problem
 
 on:
   schedule:
-    - cron: '30 6 1-25 12 *'
+    - cron: '30 9 1-25 12 *'
 
 jobs:
   run-script:
