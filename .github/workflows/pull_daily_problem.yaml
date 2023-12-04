@@ -25,7 +25,7 @@ jobs:
 
     - name: Run pull_daily_problem.py
       env:
-        SCRIPT_ENVIRONMENT: 'github_action'
+        SCRIPT_ENVIRONMENT: 'github_actions'
         AOC_SESSION_COOKIE: ${{ secrets.AOC_SESSION_COOKIE }}
       run: python utils/add_problem_1.py
 
