@@ -2,7 +2,7 @@ name: Pull daily problem
 
 on:
   schedule:
-    - cron: '* 13 1-25 12 *'
+    - cron: '0 13 1-25 12 *'
   workflow_dispatch:
 
 jobs:
