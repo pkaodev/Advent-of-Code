@@ -1,2 +1,3 @@
 **/venv
-**/.gh_login_details
+**/.aoc_session_cookie
+**/__pycache__
