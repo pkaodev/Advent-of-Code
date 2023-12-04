@@ -1,3 +1,4 @@
+const _ = require('../../../language-setups/javascript/utils.js')
 const path = require('path');
 const readFileSync = require('fs').readFileSync;
 

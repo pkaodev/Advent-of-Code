@@ -1,8 +1,9 @@
-const path = require('path');
-const readFileSync = require('fs').readFileSync;
-const inputPath = path.join(__dirname, 'input_example');
-const data = readFileSync(inputPath, 'utf8');
-const lines = data.split(/\n/);
+const utils = require('../..//utils.js')
+const path = require('path')
+const readFileSync = require('fs').readFileSync
+const inputPath = path.join(__dirname, 'input_example')
+const data = readFileSync(inputPath, 'utf8')
+const lines = data.split(/\n/)
 
 
 

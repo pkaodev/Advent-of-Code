@@ -1,4 +1,4 @@
-function callFuncAdjTiles(func, x, y, maxX, maxY, minX = 0, minY = 0) {
+module.exports.callFuncAdjTiles = (func, x, y, maxX, maxY, minX = 0, minY = 0) => {
 
 	const directions = [[-1, -1], [-1, 0], [-1, 1], [0, -1], [0, 1], [1, -1], [1, 0], [1, 1]];
 

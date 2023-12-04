@@ -147,8 +147,9 @@ def setup_solution_files_1(dirname, example_solution):
         lang_extension = 'js'
         lang_comment = '//'
 
-    os.system(
-        f"cp language-setups/{lang_choice}/solution.{lang_extension} {dirname}/s1.{lang_extension}")
+    os.system(f"cp language-setups/{lang_choice}/solution.{lang_extension} {dirname}/s1.{lang_extension}")
+    
+    # os.system(f"cp language-setups/{lang_choice}/utils.{lang_extension} {dirname}/utils.{lang_extension}")
 
     with open(f"{dirname}/s1.{lang_extension}", 'r') as file:
         lines = file.readlines()
