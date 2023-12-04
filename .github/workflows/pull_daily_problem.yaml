@@ -2,7 +2,7 @@ name: Pull daily problem
 
 on:
   schedule:
-    - cron: '30 9 1-25 12 *'
+    - cron: '15 10 1-25 12 *'
 
 jobs:
   run-script:
@@ -30,9 +30,9 @@ jobs:
       run: python pull_daily_problem.py
 
     - name: Commit and push changes
-        run: |
-          git config --global user.name 'github-action[bot]'
-          git config --global user.email '${{ secrets.GH_EMAIL }}'
-          git add -A
-          git commit -m "AUTO COMMIT: problem part 1 for $(date +'%Y-%m-%d')"
-          git push
+      run: |
+        git config --global user.name 'github-action[bot]'
+        git config --global user.email '${{ secrets.GH_EMAIL }}'
+        git add -A
+        git commit -m "AUTO COMMIT: problem part 1 for $(date +'%Y-%m-%d')"
+        git push
