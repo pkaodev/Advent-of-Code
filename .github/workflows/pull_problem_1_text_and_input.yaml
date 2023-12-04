@@ -1,4 +1,4 @@
-name: Pull daily problem
+name: Pull problem 1 text and input
 
 on:
   schedule:

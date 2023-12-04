@@ -5,11 +5,11 @@ def add_problem_2(year, day):
     
     aoc_headers = get_aoc_headers()
     
-    problem_name, problem_1_text = fetch_problem_1_name_text(year, day, aoc_headers)
+    problem_name, problem_1_text, problem_url = fetch_problem_1_name_text(year, day, aoc_headers)
     
     day_dir = create_day_directory(year, day, problem_name)
     
-    problem_2_text = fetch_problem_2_text(year, day, aoc_headers)
+    problem_2_text = fetch_problem_2_text(year, day, aoc_headers, problem_url)
     
     save_text_to_file(problem_2_text, 'p2.txt', day_dir)
     

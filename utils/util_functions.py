@@ -79,7 +79,7 @@ def get_aoc_headers():
 	return aoc_headers
 
 @wait_msg("Fetching problem 1")
-def fetch_problem_1_name_text(year, day, aoc_headers):
+def fetch_problem_1_name_text_url(year, day, aoc_headers):
     problem_url = f"https://adventofcode.com/{year}/day/{day}"
     
     problem_response = requests.get(problem_url, headers=aoc_headers)
@@ -89,9 +89,9 @@ def fetch_problem_1_name_text(year, day, aoc_headers):
     problem_1_text_full = soup.find('article').get_text()
     
     problem_name = problem_1_text_full.split('\n')[0].split(': ')[1].split(' ---')[0].replace(' ', '_')
-    problem_1_text = problem_1_text_full.split('---')[2]
+    problem_1_text = problem_url + "\n\n" + problem_1_text_full.split('---')[2]
     
-    return problem_name, problem_1_text
+    return problem_name, problem_1_text, problem_url
 
 @wait_msg("Fetching input")
 def fetch_input_text(year, day, aoc_headers):
@@ -102,14 +102,14 @@ def fetch_input_text(year, day, aoc_headers):
 	return input_response.text
 
 @wait_msg("Fetching problem 2")
-def fetch_problem_2_text(year, day, aoc_headers):
+def fetch_problem_2_text(year, day, aoc_headers, problem_url):
 	problem_url = f"https://adventofcode.com/{year}/day/{day}"
 	
 	problem_response = requests.get(problem_url, headers=aoc_headers)
 	
 	soup = BeautifulSoup(problem_response.text, 'html.parser')
 	
-	problem_2_text = soup.find_all('article')[1].get_text()
+	problem_2_text = problem_url + "\n\n" + soup.find_all('article')[1].get_text()
 	
 	return problem_2_text
 
