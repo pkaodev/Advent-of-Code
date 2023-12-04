@@ -35,8 +35,7 @@ UNDERLINE = '\033[4m'
 REVERSE = '\033[7m'
 
 
-
-### Print Functions ###
+### Printing ###
 
 def wait_msg(message):
     def decorator(func):
@@ -67,68 +66,101 @@ def wait_msg(message):
     return decorator
 
 
-
 ### Creating Directory/Files, Pulling Problem Texts/Input ###
 
 def get_aoc_headers():
-	script_environment = os.getenv('SCRIPT_ENVIRONMENT', 'local')
+    script_environment = os.getenv('SCRIPT_ENVIRONMENT', 'local')
 
-	if script_environment == 'github_actions':
-		aoc_session_cookie = os.getenv('AOC_SESSION_COOKIE')
-	elif script_environment == 'local':
-		with open('.aoc_session_cookie', 'r') as file:
-			aoc_session_cookie = file.read().strip()
+    if script_environment == 'github_actions':
+        aoc_session_cookie = os.getenv('AOC_SESSION_COOKIE')
+    elif script_environment == 'local':
+        with open('.aoc_session_cookie', 'r') as file:
+            aoc_session_cookie = file.read().strip()
 
-	aoc_headers = {'cookie': f'session={aoc_session_cookie}'}
-	
-	return aoc_headers
+    aoc_headers = {'cookie': f'session={aoc_session_cookie}'}
+
+    return aoc_headers
+
 
 @wait_msg("Fetching problem 1")
-def fetch_problem_1_name_text_url(year, day, aoc_headers):
+def fetch_problem_1_name_text_url_example(year, day, aoc_headers):
     problem_url = f"https://adventofcode.com/{year}/day/{day}"
-    
+
     problem_response = requests.get(problem_url, headers=aoc_headers)
-    
+
     soup = BeautifulSoup(problem_response.text, 'html.parser')
-    
+
     problem_1_text_full = soup.find('article').get_text()
-    
-    problem_name = problem_1_text_full.split('\n')[0].split(': ')[1].split(' ---')[0].replace(' ', '_')
+
+    example_input = soup.find('pre').find('code').get_text().strip()
+    example_solution = soup.find_all('em')[-2].get_text().strip()
+
+    problem_name = problem_1_text_full.split('\n')[0].split(
+        ': ')[1].split(' ---')[0].replace(' ', '_')
     problem_1_text = problem_url + "\n\n" + problem_1_text_full.split('---')[2]
-    
-    return problem_name, problem_1_text, problem_url
+
+    return problem_name, problem_1_text, problem_url, example_input, example_solution
+
 
 @wait_msg("Fetching input")
 def fetch_input_text(year, day, aoc_headers):
-	input_url = f"https://adventofcode.com/{year}/day/{day}/input"
- 
-	input_response = requests.get(input_url, headers=aoc_headers)
- 
-	return input_response.text
+    input_url = f"https://adventofcode.com/{year}/day/{day}/input"
+
+    input_response = requests.get(input_url, headers=aoc_headers)
+
+    return input_response.text.strip()
+
 
 @wait_msg("Fetching problem 2")
 def fetch_problem_2_text(year, day, aoc_headers, problem_url):
-	problem_url = f"https://adventofcode.com/{year}/day/{day}"
-	
-	problem_response = requests.get(problem_url, headers=aoc_headers)
-	
-	soup = BeautifulSoup(problem_response.text, 'html.parser')
-	
-	problem_2_text = problem_url + "\n\n" + soup.find_all('article')[1].get_text()
-	
-	return problem_2_text
+    problem_url = f"https://adventofcode.com/{year}/day/{day}#part2"
+
+    problem_response = requests.get(problem_url, headers=aoc_headers)
+
+    soup = BeautifulSoup(problem_response.text, 'html.parser')
+
+    problem_2_text = problem_url + "\n\n" + \
+        soup.find_all('article')[1].get_text()
+
+    return problem_2_text
+
 
 def create_day_directory(year, day, problem_name):
     day_dir = f"solutions/{year}/{day}-{problem_name}"
     os.makedirs(day_dir, exist_ok=True)
     return day_dir
 
+
 def save_text_to_file(text, filename, dirname):
     with open(f"{dirname}/{filename}", 'w') as file:
         file.write(text)
 
 
+def setup_solution_files_1(dirname, example_solution):
+    with open('.language_choice', 'r') as file:
+        lang_choice = file.readline().strip().lower()
+
+    if lang_choice == 'python':
+        lang_extension = 'py'
+        lang_comment = '#'
+    elif lang_choice == 'javascript':
+        lang_extension = 'js'
+        lang_comment = '//'
+
+    os.system(
+        f"cp language-setups/{lang_choice}/solution.{lang_extension} {dirname}/s1.{lang_extension}")
+
+    with open(f"{dirname}/s1.{lang_extension}", 'r') as file:
+        lines = file.readlines()
+        lines.insert(
+            len(lines), f"\n{lang_comment} Example Solution: {example_solution}\n")
+
+    with open(f"{dirname}/s1.{lang_extension}", 'w') as file:
+        file.writelines(lines)
+
 
 ### Submissions ###
 
 ### Testing ###
+
+### Running ###

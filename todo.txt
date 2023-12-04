@@ -21,7 +21,6 @@ ISSUES:
 -extra empty line added at input
 -move --- Part Two --- to another line
 - add --- Part One --- for p1.txt
--p2 url should be https://adventofcode.com/2023/day/4#part2
 -simplify how urls are made
 -make the test input from problem text into input_example
 -in test framework get the solutions for input_example as test_p1_example and test_p2_example

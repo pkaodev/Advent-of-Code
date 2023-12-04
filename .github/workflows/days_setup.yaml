@@ -1,4 +1,4 @@
-name: Pull daily problem 1 text and input
+name: Day's setup
 
 on:
   schedule:
@@ -23,11 +23,11 @@ jobs:
     - name: Install dependencies
       run: pip install requests beautifulsoup4
 
-    - name: Run pull_daily_problem.py
+    - name: Run add_problem_1.py
       env:
         SCRIPT_ENVIRONMENT: 'github_actions'
         AOC_SESSION_COOKIE: ${{ secrets.AOC_SESSION_COOKIE }}
-      run: python utils/add_problem_1.py
+      run: python aoc-utils/add_problem_1.py
 
     - name: Commit and push changes
       run: |
