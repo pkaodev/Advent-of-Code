@@ -42,6 +42,7 @@ def fetch_and_save_input_text(url, filename, session):
     response = session.get(url)
     print(f"Input response: {response}")
     input_text = response.text
+    print(f"Input text: {input_text}")
     save_text_to_file(input_text, filename)
 
 def login_to_github_and_authenticate_aoc():
