@@ -40,6 +40,7 @@ def fetch_and_save_problem_text_2(url, filename, session):
 
 def fetch_and_save_input_text(url, filename, session):
     response = session.get(url)
+    print(f"Input response: {response}")
     input_text = response.text
     save_text_to_file(input_text, filename)
 
@@ -57,10 +58,12 @@ def login_to_github_and_authenticate_aoc():
     is_github_action = os.getenv('IS_GITHUB_ACTION') == 'true'
     
     if is_github_action:
+        print("Authenticating via GitHub Action Secrets")
         gh_email = os.getenv('GH_EMAIL')
         gh_password = os.environ.get('GH_PASSWORD')
      
     else:
+        print("Authenticating via local .gh_login_details file")
         with open('.gh_login_details', 'r') as file:
             gh_email, gh_password = [line.strip() for line in file.readlines()]
 
@@ -74,6 +77,9 @@ def login_to_github_and_authenticate_aoc():
     
     if response.ok:
         session.get(aoc_gh_auth_url)
+        print("GitHub login successful")
+        print("Session:")
+        print(session)
         return session
     else:
         raise Exception("""GitHub login failed
