@@ -23,7 +23,6 @@ for (let seedNum of seeds) {
 
     let mappingI = 0
     for (let mapping1 of mappings) {
-        // console.log(mappingI, mapping1)
         mappingI++
 
         innerLoop: for (let mapping2 of mapping1) {
@@ -39,8 +38,6 @@ for (let seedNum of seeds) {
     }
     locationNums.push(currNum)
 }
-console.log(locationNums.sort())
-const SOLUTION_1 = locationNums.sort()[0]
-
+const SOLUTION_1 = locationNums.sort((a,b)=>a-b)[0]
 console.log(`SOLUTION_1: ${SOLUTION_1}`)
 // Example Solution: 35
