@@ -2,7 +2,7 @@ name: Day's setup
 
 on:
   schedule:
-    - cron: '30 6 1-25 12 *'
+    - cron: '0 7 1-25 12 *'
   workflow_dispatch:
 
 jobs:
