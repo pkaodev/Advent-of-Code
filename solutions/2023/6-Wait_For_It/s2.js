@@ -7,35 +7,41 @@ const lines = data.split(/\n/)
 
 const [times, distances] = lines.map(line => line.split(/:\s*/)[1].split(/\s+/).join('').split(' ').map(Number))
 
-console.log(times, distances)
+function findSolution2(raceTime, winDistance) {
 
-function beatsRecord(raceTime, recordDistance, timePressed) {
-    const speed = timePressed
-    const distanceTravelled = speed * (raceTime - timePressed)
-    return distanceTravelled > recordDistance
+    const sol1 = (-raceTime + Math.sqrt((raceTime**2) - (4*winDistance))) / -2
+    const sol2 = (-raceTime - Math.sqrt((raceTime**2) - (4*winDistance))) / -2
+
+    return Math.floor(Math.abs(sol1-sol2))
 }
 
-function findRaceWinPossibilities(raceTime, recordDistance) {
-    let raceWinPossibilities = 0
+// function beatsRecord(raceTime, recordDistance, timePressed) {
+//     const speed = timePressed
+//     const distanceTravelled = speed * (raceTime - timePressed)
+//     return distanceTravelled > recordDistance
+// }
 
-    for (let timePressed = 0; timePressed <= raceTime; timePressed++) {
-        if (beatsRecord(raceTime, recordDistance, timePressed)) {
-            raceWinPossibilities++
-        }
-    }
+// function findRaceWinPossibilities(raceTime, recordDistance) {
+//     let raceWinPossibilities = 0
 
-    return raceWinPossibilities
-}
+//     for (let timePressed = 0; timePressed <= raceTime; timePressed++) {
+//         if (beatsRecord(raceTime, recordDistance, timePressed)) {
+//             raceWinPossibilities++
+//         }
+//     }
 
-function findSolution2(times, distances) {
-    const winPossibilities = []
+//     return raceWinPossibilities
+// }
 
-    for (let i = 0; i < times.length; i++) {
-        winPossibilities.push(findRaceWinPossibilities(times[i], distances[i]))
-    }
+// function findSolution2(times, distances) {
+//     const winPossibilities = []
 
-    return winPossibilities.reduce((p, c) => p * c, 1)
-}
+//     for (let i = 0; i < times.length; i++) {
+//         winPossibilities.push(findRaceWinPossibilities(times[i], distances[i]))
+//     }
+
+//     return winPossibilities.reduce((p, c) => p * c, 1)
+// }
 
 const SOLUTION_2 = findSolution2(times, distances)
 
