@@ -15,7 +15,7 @@ def setup_day_1(year, day):
     
     save_text_to_file(problem_text, 'p1.txt', day_dir)
     save_text_to_file(problem_input, 'input', day_dir)
-    save_text_to_file(example_input, 'example_input', day_dir)
+    save_text_to_file(example_input, 'input_example', day_dir)
     
     lang_choice, lang_extension = get_lang_choice()
     

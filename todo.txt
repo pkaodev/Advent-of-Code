@@ -8,6 +8,12 @@ setup testing for solution1/solution2 files
 
 stuff to work from .language_choice file
 
+setup from package.json with 'make setup'
+-make setup_python
+-make setup_javascript
+
+-are envariables for date/year ever needed? -> remove os.environ?
+
 make commands:
 -run
 -test
@@ -21,6 +27,8 @@ make commands:
 -make day 2022 -> get all for 2022
 -make day 5 2022 -> get day 5 2022
 
+
+-make setup for s2 copy over s1, just change the expected output
 
 ISSUES:
 -format p1/p2:

@@ -1,4 +1,5 @@
 import os
+from datetime import datetime
 import requests
 import threading
 import time
@@ -99,10 +100,8 @@ def get_lang_choice():
 def create_solution_file(part, dirname, lang_choice, example_solution):
     if lang_choice == 'python':
         lang_extension = 'py'
-        lang_comment = '#'
     elif lang_choice == 'javascript':
         lang_extension = 'js'
-        lang_comment = '//'
         
     solution_file_path = f"{dirname}/s{part}.{lang_extension}"
     os.system(f"cp language-setups/{lang_choice}/solution.{lang_extension} {solution_file_path}")
@@ -110,10 +109,26 @@ def create_solution_file(part, dirname, lang_choice, example_solution):
     with open(solution_file_path, 'r') as file:
         lines = file.readlines()
 
-    lines.append(f"\n{lang_comment} Example solution: {example_solution}")
+    lines.append(f"{example_solution}")
 
     return ''.join(lines)
 
-### Submitting ###
-### Testing ###
 ### Running ###
+# run1() will run todays p1 file, use .language_choice
+# run2()
+# run1(day) run2(day)
+# run1(day, year) run2(day, year)
+
+### Submitting ###
+# submit1() submit2() + day + day,year
+
+### Testing ###
+def test(part, day=None, year=None):
+    if day is None:
+        day = datetime.now().day
+    if year is None:
+        year = datetime.now().year
+
+    # get language
+    # run npm test/pytest on specific file
+# same
