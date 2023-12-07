@@ -120,14 +120,36 @@ def create_solution_file(part, dirname, lang_choice, example_solution):
 # run1(day, year) run2(day, year)
 
 ### Submitting ###
-# submit1() submit2() + day + day,year
+def get_part_day_year():
+    current_dir = os.path.dirname(os.path.abspath(__file__))
+    filename = os.path.basename(__file__)
+    
+    part = '1' if '1' in filename else '2'
+    day = current_dir.split(os.sep)[-1].split('-')[0]
+    year = current_dir.split(os.sep)[-2]
 
+    return part, day, year
+    
+@wait_msg("Submitting answer")
+def submit(answer):
+    part, day, year = get_part_day_year()
+    problem_url = f"https://adventofcode.com/{year}/day/{day}"
+    post_data = {
+            'level' : part,
+            'answer' : str(answer)
+        }
+    headers = get_aoc_headers()
+    response = requests.post(problem_url, headers=headers, data=post_data)
+    print(response.text)
+    
+    
+    
 ### Testing ###
-def test(part, day=None, year=None):
-    if day is None:
-        day = datetime.now().day
-    if year is None:
-        year = datetime.now().year
+# def test(part, day=None, year=None):
+#     if day is None:
+#         day = datetime.now().day
+#     if year is None:
+#         year = datetime.now().year
 
     # get language
     # run npm test/pytest on specific file

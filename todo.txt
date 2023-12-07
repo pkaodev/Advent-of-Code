@@ -21,6 +21,7 @@ make commands:
 -submit
 --auto pull 2 when submitting 1
 
+-pull command for specific day/year/part
 
 -update stars
 
@@ -42,3 +43,12 @@ ISSUES:
 -simplify how urls are made
 -make the test input from problem text into input_example
 -in test framework get the solutions for input_example as test_p1_example and test_p2_example
+
+combine language utils with aoc utils (maybe import aoc utils into language utils)?
+
+store previous submissions, prevent resubmitting same solution
+-command to see previous submissions
+
+automatic star + language checking
+
+seperate aoc-utils -> functions imported into file + functions for scripts

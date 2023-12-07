@@ -1,4 +1,5 @@
 const utils = require('../../../language-setups/javascript/utils.js')
+const {submit} = require('../../../aoc-utils/utils.js')
 const path = require('path')
 const readFileSync = require('fs').readFileSync
 const inputPath = path.join(__dirname, 'input')
@@ -19,7 +20,7 @@ const handStrengthObj = handStrength.reduce((obj, strength, index) => {
 	return obj;
 }, {});
 
-const cardStrength = ["A", "K", "Q", "J", "T", "9", "8", "7", "6", "5", "4", "3", "2"]
+const cardStrength = ["A", "K", "Q", "T", "9", "8", "7", "6", "5", "4", "3", "2", "J"]
 const cardStrengthObj = cardStrength.reduce((obj, strength, index) => {
 	obj[strength] = cardStrength.length - index;
 	return obj;
@@ -27,11 +28,24 @@ const cardStrengthObj = cardStrength.reduce((obj, strength, index) => {
 
 getHandType = (hand) => {
 // assumes hand is length 5 and valid
+
+	// count and remove J's from hand
+	hand = hand.split('').filter(card=>card!=='J')
+	jNum = 5 - hand.length
+
 	const count = {}
 	for (const card of hand) {
 		count[card] = count[card] ? count[card] + 1 : 1
 	}
+
 	const counts = Object.values(count).sort((a,b)=>b-a)
+	
+	// add J's to highest count
+	if (jNum === 5) {
+		return 'five'
+	}
+	counts[0] += jNum
+
 	if (counts[0] === 5) {
 		return 'five'
 	} else if (counts[0] === 4) {
@@ -75,6 +89,8 @@ handBets.sort(sortHandBets)
 const SOLUTION_1 = handBets.reduce((sum, handBet, index) => sum + handBet[1]*(index+1), 0)
 
 console.log(`SOLUTION_1: ${SOLUTION_1}`)
-// Example solution: 6440
+// Example solution: 5905
+
+submit(SOLUTION_1)
 
 module.exports = {parseInput, getHandType}

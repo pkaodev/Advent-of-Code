@@ -3,7 +3,7 @@ from datetime import datetime
 from utils import get_aoc_headers, fetch_problem_data, fetch_input, create_day_directory, save_text_to_file, get_lang_choice, create_solution_file
 
 
-def setup_day_1(year, day):
+def setup_day_2(year, day):
 
     aoc_headers = get_aoc_headers()
     
@@ -21,7 +21,8 @@ def setup_day_1(year, day):
     
     
 if __name__ == "__main__":
-    year = os.environ.get('YEAR', datetime.now().year)
-    day = os.environ.get('DAY', datetime.now().day)
-
-    setup_day_1(year, day)
+    year = os.environ.get('AOC_YEAR', datetime.now().year)
+    day = os.environ.get('AOC_DAY', datetime.now().day)
+    print('year', year, type(year))
+    print('day', day, type(day))
+    setup_day_2(year, day)

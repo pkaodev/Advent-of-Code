@@ -27,5 +27,6 @@ def setup_day_1(year, day):
 if __name__ == "__main__":
     year = os.environ.get('YEAR', datetime.now().year)
     day = os.environ.get('DAY', datetime.now().day)
-
+    print('year', year, type(year))
+    print('day', day, type(day))
     setup_day_1(year, day)
