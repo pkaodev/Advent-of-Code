@@ -1,8 +1,7 @@
 ### ANSI Escape Codes ###
 
 # Foreground
-RED=\033[31m
-GREEN=\033[32m
+RED=\033[31mCYANN=\033[32m
 YELLOW=\033[33m
 BLUE=\033[34m
 MAGENTA=\033[35m
@@ -31,13 +30,13 @@ REVERSE=\033[7m
 setup:
 	python3 -m venv venv
 	./venv/bin/pip install -r requirements.txt
-	@echo "$(GREEN)What is your AOC session cookie? (can add to .aoc_session_cookie later)"
-	@echo "Instructions on how to get it can be found in README.md$(RESET)"
+	@echo "$(CYAN)What is your AOC session cookie? (can add to .aoc_session_cookie later)"
+	@echo "$(MAGENTA)Instructions on how to get it can be found in README.md$(RESET)"
 	@read aoc_session_cookie; \
 	echo $$aoc_session_cookie > .aoc_session_cookie
 
 day1:
-	./venv/bin/python3 aoc-utils/add_problem_1.py
+	./venv/bin/python3 aoc-utils/setup_day_1.py
 
 day2:
-	./venv/bin/python3 aoc-utils/add_problem_2.py
+	./venv/bin/python3 aoc-utils/setup_day_2.py

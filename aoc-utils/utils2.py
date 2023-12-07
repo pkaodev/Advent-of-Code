@@ -39,14 +39,8 @@ def get_aoc_headers():
     if script_environment == 'github_actions':
         aoc_session_cookie = os.getenv('AOC_SESSION_COOKIE')
     elif script_environment == 'local':
-        try:
-            with open('.aoc_session_cookie', 'r') as file:
-                aoc_session_cookie = file.read().strip()
-        except FileNotFoundError:
-            aoc_session_cookie = input(f"{A.CYAN}Enter your AoC session cookie {A.MAGENTA}(instructions on how to get it can be found in README.md):{A.RESET}\n ")
-            with open('.aoc_session_cookie', 'w') as file:
-                file.write(aoc_session_cookie)
-            return get_aoc_headers()
+        with open('.aoc_session_cookie', 'r') as file:
+            aoc_session_cookie = file.read().strip()
     return {'cookie': f'session={aoc_session_cookie}'}
 
 def fetch_soup(url, headers):
@@ -84,17 +78,6 @@ def create_day_directory(year, day, problem_name):
     day_dir = f"solutions/{year}/{day}-{problem_name}"
     os.makedirs(day_dir, exist_ok=True)
     return day_dir
-
-def get_lang_choice():
-    with open('.language_choice', 'r') as file:
-        lang_choice = file.read().strip()
-        
-    if lang_choice == 'python':
-        lang_extension = 'py'
-    elif lang_choice == 'javascript':
-        lang_extension = 'js'
-        
-    return lang_choice, lang_extension
 
 def create_solution_file(part, dirname, lang_choice, example_solution):
     if lang_choice == 'python':

@@ -12,12 +12,22 @@ make commands:
 -run
 -test
 -submit1
--submit2
+-submit
+--auto pull 2 when submitting 1
+
+
+-update stars
+
 -make day 2022 -> get all for 2022
 -make day 5 2022 -> get day 5 2022
 
 
 ISSUES:
+-format p1/p2:
+--convert to md with formatting
+
+-do something with problem_url ???
+
 -extra empty line added at input
 -move --- Part Two --- to another line
 - add --- Part One --- for p1.txt
