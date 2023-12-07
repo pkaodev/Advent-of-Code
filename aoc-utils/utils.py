@@ -72,7 +72,7 @@ def fetch_problem_data(part, year, day, headers):
     soup = fetch_soup(problem_url, headers)
     if part == 2:
         problem_url += "#part2"
-    problem_name, problem_text, example_input, example_solution = extract_problem_info(soup, part)
+    problem_name, problem_text, example_input, example_solution = extract_problem_info(part, soup)
     return problem_name, problem_text, problem_url, example_input, example_solution
 
 @wait_msg("Fetching input")
@@ -100,19 +100,17 @@ def create_solution_file(part, dirname, lang_choice, example_solution):
     if lang_choice == 'python':
         lang_extension = 'py'
         lang_comment = '#'
-        lang_solution = f'SOLUTION_{part} = None\n\nprint(f"SOLUTION_{part}: {{SOLUTION_{part}}}")'
     elif lang_choice == 'javascript':
         lang_extension = 'js'
         lang_comment = '//'
-        lang_solution = f'const SOLUTION{part} = undefined\n\nconsole.log(`SOLUTION_{part}: ${{SOLUTION_{part}}}`)'
-
+        
     solution_file_path = f"{dirname}/s{part}.{lang_extension}"
     os.system(f"cp language-setups/{lang_choice}/solution.{lang_extension} {solution_file_path}")
 
     with open(solution_file_path, 'r') as file:
         lines = file.readlines()
 
-    lines.append(f"\n{lang_solution}\n{lang_comment} Example solution: {example_solution}\n")
+    lines.append(f"\n{lang_comment} Example solution: {example_solution}")
 
     return ''.join(lines)
 

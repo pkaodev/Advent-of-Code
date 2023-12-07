@@ -9,6 +9,6 @@ const lines = data.split(/\n/)
 
 
 
-const SOLUTION_1 = undefined
+const SOLUTION1 = undefined
 
 console.log(`SOLUTION_1: ${SOLUTION_1}`)
