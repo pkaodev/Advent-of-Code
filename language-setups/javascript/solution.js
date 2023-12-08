@@ -4,17 +4,7 @@ const path = require('path')
 const readFileSync = require('fs').readFileSync
 const inputPath = path.join(__dirname, 'input_example')
 const data = readFileSync(inputPath, 'utf8')
-
-function parseInput(data) {
-    const lines = data.split(/\n/)
-
-    // return
-}
-
-
-
-
-
+const lines = data.split(/\n/)
 
 
 

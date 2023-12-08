@@ -54,3 +54,5 @@ automatic star + language checking
 seperate aoc-utils -> functions imported into file + functions for scripts
 
 -make wait_msg_2 with no Done! message at the end
+
+extract multiple examples and solutions
