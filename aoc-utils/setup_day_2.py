@@ -23,6 +23,6 @@ def setup_day_2(year, day):
 if __name__ == "__main__":
     year = os.environ.get('AOC_YEAR', datetime.now().year)
     day = os.environ.get('AOC_DAY', datetime.now().day)
-    print('year', year, type(year))
-    print('day', day, type(day))
+    # print('year', year, type(year))
+    # print('day', day, type(day))
     setup_day_2(year, day)

@@ -25,16 +25,27 @@ DIM=\033[2m
 UNDERLINE=\033[4m
 REVERSE=\033[7m
 
-PART ?=
-DAY ?=
-YEAR ?=
+PART ?= null
+DAY ?= null
+YEAR ?= null
+ANSWER ?= null
 
 .PHONY: setup day
 
 # set python/python3 command
 # set pip/pip3 command
 
-setup:
+setup-scripts:
+	mkdir -p ~/bin
+	cp ./aoc-utils/aoc_run.sh ~/bin/aoc_run.sh
+	cp ./aoc-utils/run.py ~/bin/run.py
+	chmod +x ~/bin/aoc_run.sh
+	if ! grep -q 'export PATH="$$PATH:~/bin"' ~/.bashrc; then \
+		echo 'export PATH="$$PATH:~/bin"' >> ~/.bashrc; \
+	fi
+
+
+setup: setup-scripts
 	# python
 	python3 -m venv venv
 	./venv/bin/pip install -r requirements.txt
@@ -52,13 +63,13 @@ day1:
 	AOC_DAY=$(DAY) AOC_YEAR=$(YEAR) ./venv/bin/python3 aoc-utils/setup_day_1.py
 
 day2:
-	AOC_DAYDAY=$(DAY) AOC_YEAR=$(YEAR) ./venv/bin/python3 aoc-utils/setup_day_2.py
+	AOC_DAY=$(DAY) AOC_YEAR=$(YEAR) ./venv/bin/python3 aoc-utils/setup_day_2.py
 
-# run:
-# 	AOC_PART=$(PART) AOC_DAYDAY=$(DAY) AOC_YEAR=$(YEAR) ./venv/bin/python3 aoc-utils/run.py
+run:
+	AOC_PART=$(PART) AOC_DAY=$(DAY) AOC_YEAR=$(YEAR) ./venv/bin/python3 aoc-utils/run.py
 
 # test:
-# 	AOC_PART=$(PART) AOC_DAYDAY=$(DAY) AOC_YEAR=$(YEAR) ./venv/bin/python3 aoc-utils/test.py
+# 	AOC_PART=$(PART) AOC_DAY=$(DAY) AOC_YEAR=$(YEAR) ./venv/bin/python3 aoc-utils/test.py
 
-# submit:
-# 	AOC_PART=$(PART) AOC_DAYDAY=$(DAY) AOC_YEAR=$(YEAR) ./venv/bin/python3 aoc-utils/submit.py
+submit:
+	AOC_ANSWER=$(ANSWER) AOC_PART=$(PART) AOC_DAY=$(DAY) AOC_YEAR=$(YEAR) ./venv/bin/python3 aoc-utils/submit.py

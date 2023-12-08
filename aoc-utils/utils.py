@@ -50,6 +50,20 @@ def get_aoc_headers():
             return get_aoc_headers()
     return {'cookie': f'session={aoc_session_cookie}'}
 
+def get_part_day_year():
+    year = os.environ.get('AOC_YEAR')
+    day = os.environ.get('AOC_DAY')
+    part = os.environ.get('AOC_PART')
+    
+    if year == 'null':
+        year = datetime.now().year
+    if day == 'null':
+        day = datetime.now().day
+    if part == 'null':
+        part = None
+    
+    return part, day, year
+
 def fetch_soup(url, headers):
     response = requests.get(url, headers=headers)
     return BeautifulSoup(response.text, 'html.parser')
@@ -120,15 +134,15 @@ def create_solution_file(part, dirname, lang_choice, example_solution):
 # run1(day, year) run2(day, year)
 
 ### Submitting ###
-def get_part_day_year():
-    current_dir = os.path.dirname(os.path.abspath(__file__))
-    filename = os.path.basename(__file__)
+# def get_part_day_year():
+#     current_dir = os.path.dirname(os.path.abspath(__file__))
+#     filename = os.path.basename(__file__)
     
-    part = '1' if '1' in filename else '2'
-    day = current_dir.split(os.sep)[-1].split('-')[0]
-    year = current_dir.split(os.sep)[-2]
+#     part = '1' if '1' in filename else '2'
+#     day = current_dir.split(os.sep)[-1].split('-')[0]
+#     year = current_dir.split(os.sep)[-2]
 
-    return part, day, year
+#     return part, day, year
     
 @wait_msg("Submitting answer")
 def submit(answer):
