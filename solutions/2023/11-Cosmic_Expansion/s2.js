@@ -1,8 +1,8 @@
-const utils = require('../../../language-setups/javascript/utils.js')
-const {submit} = require('../../../aoc-utils/utils.js')
+const utils = require('../../../lib/lang-utils/javascript/utils.js')
+const {submit} = require('../../../lib/aoc-utils/utils.js')
 const path = require('path')
 const readFileSync = require('fs').readFileSync
-const inputPath = path.join(__dirname, 'input_example')
+const inputPath = path.join(__dirname, 'input')
 const data = readFileSync(inputPath, 'utf8')
 
 function parseInput(data) {
@@ -50,7 +50,7 @@ function findGalaxies(grid) {
     return galaxyLocations
 }
 function findShortestPaths(galaxyLocations, emptyRowsColumns) {
-    const expFact = 1
+    const expFact = 999999
     const shortestPaths = []
     for (let g1=0; g1<galaxyLocations.length-1; g1++) {
         for (let g2=g1+1; g2<galaxyLocations.length; g2++) {
@@ -59,7 +59,7 @@ function findShortestPaths(galaxyLocations, emptyRowsColumns) {
             const maxY = Math.max(galaxyLocations[g1].y, galaxyLocations[g2].y)
             const minY = Math.min(galaxyLocations[g1].y, galaxyLocations[g2].y)
             const expX = emptyRowsColumns.emptyColumns.filter(q=>q>minX&&q<maxX).length
-            const expY = emptyRowsColumns.emptyColumns.filter(q=>q>minY&&q<maxY).length
+            const expY = emptyRowsColumns.emptyRows.filter(q=>q>minY&&q<maxY).length
             shortestPaths.push(Math.abs(galaxyLocations[g2].x-galaxyLocations[g1].x)+Math.abs(galaxyLocations[g2].y-galaxyLocations[g1].y)+((expY+expX)*expFact))
         }
     }
@@ -73,7 +73,7 @@ const galaxyLocations = findGalaxies(grid)
 console.log(emptyRowsColumns)
 console.log(galaxyLocations)
 
-shortestPaths = findShortestPaths(galaxyLocations, emptyRowsColumns)
+const shortestPaths = findShortestPaths(galaxyLocations, emptyRowsColumns)
 
 
 const SOLUTION_1 = shortestPaths.reduce((a,c)=>a+c)

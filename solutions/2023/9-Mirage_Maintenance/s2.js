@@ -8,9 +8,6 @@ const lines = data.split(/\n/)
 
 const rows = lines.map(line=>line.split(' ').map(Number))
 
-console.log(rows)
-
-
 function getDiffRow(row) {
 	const diffRow = []
 	for (let i=0; i<row.length-1; i++) {
@@ -21,32 +18,33 @@ function getDiffRow(row) {
 
 function predictNextNum(row) {
 	let nextRow = row
-	let lastNums = [nextRow[nextRow.length-1]]
+	let firstNums = [nextRow[0]]
 
 	while (!nextRow.every(num=>num===0)) {
 		nextRow = getDiffRow(nextRow)
-		lastNums.unshift(nextRow[nextRow.length-1])
+		firstNums.push(nextRow[0])
 	}
 	
-	const nextNum = lastNums.reduce((p,c)=>p+c)
+	const nextNum = firstNums.reduce((p,c,i)=>p+(c*((-1)**i)))
+	console.log(nextNum)
 	return nextNum
 }
 
-function solution1(rows) {
-	let solution1 = 0
+function solution2(rows) {
+	let solution2 = 0
 
 	rows.forEach(row => {
-		solution1 += predictNextNum(row)
+		solution2 += predictNextNum(row)
 	})
 
-	return solution1
+	return solution2
 }
 
-const SOLUTION_1 = solution1(rows)
+const SOLUTION_2 = solution2(rows)
 
 module.exports = {}
 
-// submit(SOLUTION_1)
+// submit(SOLUTION_2)
 
-console.log(`SOLUTION_1: ${SOLUTION_1}`)
+console.log(`SOLUTION_2: ${SOLUTION_2}`)
 // Example solution: 114

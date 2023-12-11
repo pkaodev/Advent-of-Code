@@ -40,6 +40,7 @@ function isValidConnection(prevPipeDir, newPipeSymbol) {
 	}
 	return pipes[newPipeSymbol].includes(getOppositeDirection(prevPipeDir))
 }
+
 function nextPipeDir(prevPipeDir, newPipeSymbol) {
 	return pipes[newPipeSymbol].filter(dir => dir !== getOppositeDirection(prevPipeDir))[0]
 }
@@ -69,53 +70,62 @@ const minY = 0
 const maxX = lines[0].length - 1
 const maxY = lines.length - 1
 
-function solution1(lines) {
+function getLoopPoints(lines) {
 	const startIndex = findStartIndex(lines)
 	let currIndex = startIndex
-
 	for (const assumedPipe of Object.keys(pipes)) {
+		const loopPoints = [currIndex]
 		let prevPipeDir = pipes[assumedPipe][0]
 		let steps = 0
-
 		do {
-
 			const nextIndex = getNextIndex(currIndex.x, currIndex.y, prevPipeDir)
-
 			if (!nextIndex) {
 				break
 			}
-
 			nextPipeSymbol = lines[nextIndex.y][nextIndex.x]
 			if (nextPipeSymbol === 'S') {
-				return Math.ceil(steps / 2)
+				loopPoints.push(assumedPipe)
+				return loopPoints
 			}
-
 			if (!isValidConnection(prevPipeDir, nextPipeSymbol)) {
 				break
 			}
-
-
-			newPipeDir = nextPipeDir(prevPipeDir, nextPipeSymbol)
-
+			let newPipeDir = nextPipeDir(prevPipeDir, nextPipeSymbol)
 			currIndex = nextIndex
+			loopPoints.push(currIndex)
 			prevPipeDir = newPipeDir
 			steps++
-
-
 		} while (currIndex != startIndex)
-
 	}
-
 }
 
+const loopPoints = getLoopPoints(lines)
 
+function solution2(loopPoints, lines) {
+    const loopArr = Array.from({ length: maxY + 1 }, () => Array(maxX + 1).fill('.'));
+    const startIndex = loopPoints.shift()
+    const startPipe = loopPoints.pop()
+    loopArr[startIndex.y][startIndex.x] = startPipe
+    for (const loopPoint of loopPoints) {
+        loopArr[loopPoint.y][loopPoint.x] = lines[loopPoint.y][loopPoint.x]
+    }
 
+    let enclosedTiles = 0;
 
-const SOLUTION_1 = solution1(lines)
+    for (let y = 0; y <= maxY; y++) {
+        let insideLoop = false;
 
-module.exports = {}
+        for (let x = 0; x <= maxX; x++) {
+            if (['|', '-', 'L', 'J', '7', 'F'].includes(loopArr[y][x])) {
+                insideLoop = !insideLoop;
+            } else if (loopArr[y][x] === '.' && insideLoop) {
+                enclosedTiles++;
+            }
+        }
+    }
 
-// submit(SOLUTION_1)
+    return enclosedTiles;
+}
 
-console.log(`SOLUTION_1: ${SOLUTION_1}`)
-// Example solution: 8
+const SOLUTION_2 = solution2(loopPoints, lines)
+console.log(`SOLUTION_2: ${SOLUTION_2}`)

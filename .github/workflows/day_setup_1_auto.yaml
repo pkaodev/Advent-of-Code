@@ -27,7 +27,7 @@ jobs:
       env:
         SCRIPT_ENVIRONMENT: 'github_actions'
         AOC_SESSION_COOKIE: ${{ secrets.AOC_SESSION_COOKIE }}
-      run: python aoc-utils/setup_day_1.py
+      run: python lib/aoc-utils/setup_day_1.py
 
     - name: Commit and push changes
       run: |

@@ -47,7 +47,7 @@ The third history requires even more sequences, but its next value can be found 
    3   3   5   9  15  23
      0   2   4   6   8
        2   2   2   2
-         0   0   0
+         0   0   0	
 
 So, the next value of the third history is 68.
 If you find the next value for each history in this example and add them together, you get 114.
