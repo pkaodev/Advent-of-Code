@@ -1,3 +1,10 @@
+script to get session cookie and store in file(?) + install
+
+redo submit/other scripts to be bash (same one called for all langs)
+
+testing framework
+
+
 setup instructions for github actions
 
 script to submit solution from solution1/solution2 files

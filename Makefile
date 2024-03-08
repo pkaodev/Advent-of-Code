@@ -37,8 +37,8 @@ ANSWER ?= null
 
 setup-scripts:
 	mkdir -p ~/bin
-	cp ./aoc-utils/aoc_run.sh ~/bin/aoc_run.sh
-	cp ./aoc-utils/run.py ~/bin/run.py
+	cp ./lib/aoc-utils/aoc_run.sh ~/bin/aoc_run.sh
+	cp ./lib/aoc-utils/run.py ~/bin/run.py
 	chmod +x ~/bin/aoc_run.sh
 	if ! grep -q 'export PATH="$$PATH:~/bin"' ~/.bashrc; then \
 		echo 'export PATH="$$PATH:~/bin"' >> ~/.bashrc; \
@@ -54,6 +54,7 @@ setup: setup-scripts
 	npm install
 
 	# aoc
+	# make blank input leave it if already exists or something
 	@echo "$(CYAN)What is your AOC session cookie? (can add to .aoc_session_cookie later)"
 	@echo "$(MAGENTA)Instructions on how to get it can be found in README.md$(RESET)"
 	@read aoc_session_cookie; \
