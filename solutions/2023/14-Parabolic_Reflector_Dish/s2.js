@@ -1,16 +1,16 @@
-// const utils = require('../../../lib/lang-utils/javascript/utils.js')
+// const utils = require('../../../templates/javascript/utils.js')
 const { endianness } = require('os')
-const {submit} = require('../../../lib/aoc-utils/utils.js')
+const { submit } = require('../../../lib/aoc-utils/utils.js')
 const path = require('path')
 const readFileSync = require('fs').readFileSync
 const inputPath = path.join(__dirname, 'input_example')
 const data = readFileSync(inputPath, 'utf8')
 
-let zone = data.split(/\n/).map(row=>row.split(''))
+let zone = data.split(/\n/).map(row => row.split(''))
 
 function tiltNorth(zone) {
-    for (let i=1; i<zone.length; i++) {
-        for (let j=0; j<zone[i].length; j++) {
+    for (let i = 1; i < zone.length; i++) {
+        for (let j = 0; j < zone[i].length; j++) {
             if (zone[i][j] !== 'O') {
                 continue
             }
@@ -27,8 +27,8 @@ function tiltNorth(zone) {
     return zone
 }
 function tiltSouth(zone) {
-    for (let i=zone.length-2; i>=0; i--) {
-        for (let j=0; j<zone[i].length; j++) {
+    for (let i = zone.length - 2; i >= 0; i--) {
+        for (let j = 0; j < zone[i].length; j++) {
             if (zone[i][j] !== 'O') {
                 continue
             }
@@ -46,8 +46,8 @@ function tiltSouth(zone) {
     return zone
 }
 function tiltWest(zone) {
-    for (let j=1; j<zone[0].length; j++) {
-        for (let i=0; i<zone.length; i++) {
+    for (let j = 1; j < zone[0].length; j++) {
+        for (let i = 0; i < zone.length; i++) {
             if (zone[i][j] !== 'O') {
                 continue
             }
@@ -64,8 +64,8 @@ function tiltWest(zone) {
     return zone
 }
 function tiltEast(zone) {
-    for (let j=zone[0].length-2; j>=0; j--) {
-        for (let i=0; i<zone.length; i++) {
+    for (let j = zone[0].length - 2; j >= 0; j--) {
+        for (let i = 0; i < zone.length; i++) {
             if (zone[i][j] !== 'O') {
                 continue
             }
@@ -102,8 +102,8 @@ function findMostSouthernFreeSpace(zone, startI, startJ) {
         if (zone[endI][startJ] !== '.') {
             return --endI
         }
-        if (endI === zone.length-1) {
-            return zone.length-1
+        if (endI === zone.length - 1) {
+            return zone.length - 1
         }
     }
 }
@@ -137,8 +137,8 @@ function scoreZone(zone) {
 
     let score = 0
 
-    for (let i=0; i<zone.length; i++) {
-        for (let j=0; j<zone[i].length; j++) {
+    for (let i = 0; i < zone.length; i++) {
+        for (let j = 0; j < zone[i].length; j++) {
             if (zone[i][j] === 'O') {
                 score += topRowPoints - i
             }
@@ -180,22 +180,22 @@ function scoreZone(zone) {
 function solve2(zone) {
     let oldState = JSON.stringify(zone)
     // for (let cycle=0; cycle<1; cycle++) {
-    for (let cycle=0; cycle<1000000000; cycle++) {
-        
+    for (let cycle = 0; cycle < 1000000000; cycle++) {
+
         zone = tiltNorth(zone)
         // printZone(zone)
-        
+
         zone = tiltWest(zone)
         // printZone(zone)
-        
+
         zone = tiltSouth(zone)
         // printZone(zone)
-        
+
         zone = tiltEast(zone)
         // printZone(zone)
         if (cycle % 10000000 === 0) {
             printZone(zone)
-            console.log(cycle/10000000, '%')
+            console.log(cycle / 10000000, '%')
         }
 
         const newState = JSON.stringify(zone)
@@ -212,8 +212,8 @@ function solve2(zone) {
 function printZone(zone) {
     for (let row of zone) {
         console.log(row.join(''))
-        }
-        console.log()
+    }
+    console.log()
 }
 
 const SOLUTION_2 = solve2(zone)

@@ -1,5 +1,5 @@
-// const utils = require('../../../lib/lang-utils/javascript/utils.js')
-const {submit} = require('../../../lib/aoc-utils/utils.js')
+// const utils = require('../../../templates/javascript/utils.js')
+const { submit } = require('../../../lib/aoc-utils/utils.js')
 const path = require('path')
 const readFileSync = require('fs').readFileSync
 const inputPath = path.join(__dirname, 'input')
@@ -120,7 +120,7 @@ function part2(pattern) {
     // get original reflection value (NEW HAS TO BE DIFFERENT)
     orgValObj = getPatternValue(pattern)
 
-    
+
     // swap each value
     for (let i = 0; i < pattern.length; i++) {
         for (let j = 0; j < pattern[i].length; j++) {
@@ -160,7 +160,7 @@ function part2(pattern) {
                         }
                     }
 
-                    
+
                     return 1
                 }
             }
