@@ -1,5 +1,7 @@
 **/venv
+**/.venv
 **/.aoc_session_cookie
 **/__pycache__
 **/playground**
 **/node_modules
+**/_*
