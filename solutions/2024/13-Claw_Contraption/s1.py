@@ -2,8 +2,8 @@ import os
 from math import inf as infinity
 current_dir = os.path.dirname(os.path.realpath(__file__))
 # input_path = os.path.join(os.path.dirname(__file__), 'input_example')
-# input_path = os.path.join(os.path.dirname(__file__), 'input')
-input_path = os.path.join(os.path.dirname(__file__), 'input_mega')
+input_path = os.path.join(os.path.dirname(__file__), 'input')
+# input_path = os.path.join(os.path.dirname(__file__), 'input_mega')
 
 with open(input_path, 'r', encoding='utf8') as file:
     _data = file.read().split('\n\n')

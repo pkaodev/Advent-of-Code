@@ -1,4 +1,4 @@
-const utils = require('../../../language-setups/javascript/utils.js')
+const utils = require('../../../templates/javascript/utils.js')
 const {submit} = require('../../../aoc-utils/utils.js')
 const path = require('path')
 const readFileSync = require('fs').readFileSync
