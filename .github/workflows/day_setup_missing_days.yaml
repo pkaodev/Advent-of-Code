@@ -30,12 +30,15 @@ jobs:
       run: |
         set -e
         YEAR=$(date +%Y)
+        TODAY_DAY=$(date +%-d)
         echo "Using year: $YEAR"
+        echo "Today is day: $TODAY_DAY"
 
         BASE_DIR="solutions/${YEAR}"
         mkdir -p "${BASE_DIR}"
 
-        for DAY in $(seq 1 25); do
+        # Only try days that are already unlocked (up to and including today's day)
+        for DAY in $(seq 1 "${TODAY_DAY}"); do
           # Check if any directory for this day already exists (e.g. solutions/2025/1-Secret_Entrance)
           if compgen -G "${BASE_DIR}/${DAY}-*" > /dev/null; then
             echo "Day ${DAY} already exists, skipping."
