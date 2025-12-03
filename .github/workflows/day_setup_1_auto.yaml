@@ -2,8 +2,12 @@ name: Day setup 1 auto
 
 on:
   schedule:
+    # Run every day from Dec 1–25 at 06:30 UTC
     - cron: '30 6 1-25 12 *'
   workflow_dispatch:
+
+permissions:
+  contents: write
 
 jobs:
   run-script:
@@ -11,12 +15,10 @@ jobs:
 
     steps:
     - name: Checkout repository
-      uses: actions/checkout@v2
-      with:
-        persist-credentials: true
+      uses: actions/checkout@v4
 
     - name: Set up Python
-      uses: actions/setup-python@v2
+      uses: actions/setup-python@v4
       with:
         python-version: '3.8'
 
@@ -29,10 +31,14 @@ jobs:
         AOC_SESSION_COOKIE: ${{ secrets.AOC_SESSION_COOKIE }}
       run: python lib/aoc-utils/setup_day_1.py
 
-    - name: Commit and push changes
+    - name: Commit and push changes (if any)
       run: |
         git config --global user.name 'github-action[bot]'
         git config --global user.email 'botty@McBotface.com'
         git add -A
-        git commit -m "AUTO COMMIT: Add problem part 1 text and input for day $(date +'%-d') of $(date +'%Y')"
-        git push
+        if git diff --cached --quiet; then
+          echo "No changes to commit"
+        else
+          git commit -m "AUTO COMMIT: Add problem part 1 text and input for day $(date +'%-d') of $(date +'%Y')"
+          git push
+        fi
