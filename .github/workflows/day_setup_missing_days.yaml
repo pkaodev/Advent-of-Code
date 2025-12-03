@@ -1,0 +1,60 @@
+name: Day setup missing days
+
+on:
+  # Manually triggered from the Actions tab
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  setup-missing-days:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.8'
+
+    - name: Install dependencies
+      run: pip install requests beautifulsoup4
+
+    - name: Setup all missing days for current year
+      env:
+        SCRIPT_ENVIRONMENT: 'github_actions'
+        AOC_SESSION_COOKIE: ${{ secrets.AOC_SESSION_COOKIE }}
+      run: |
+        set -e
+        YEAR=$(date +%Y)
+        echo "Using year: $YEAR"
+
+        BASE_DIR="solutions/${YEAR}"
+        mkdir -p "${BASE_DIR}"
+
+        for DAY in $(seq 1 25); do
+          # Check if any directory for this day already exists (e.g. solutions/2025/1-Secret_Entrance)
+          if compgen -G "${BASE_DIR}/${DAY}-*" > /dev/null; then
+            echo "Day ${DAY} already exists, skipping."
+          else
+            echo "Setting up day ${DAY} for year ${YEAR}."
+            YEAR="${YEAR}" DAY="${DAY}" python lib/aoc-utils/setup_day_1.py
+          fi
+        done
+
+    - name: Commit and push changes (if any)
+      run: |
+        git config --global user.name 'github-action[bot]'
+        git config --global user.email 'botty@McBotface.com'
+        git add -A
+        if git diff --cached --quiet; then
+          echo "No changes to commit"
+        else
+          git commit -m "AUTO COMMIT: Add missing problem part 1 text and input for Advent of Code $(date +'%Y')"
+          git push
+        fi
+
+
