@@ -148,7 +148,7 @@ def create_solution_file(part, dirname, lang_choice, example_solution):
     with open(solution_file_path, "r") as file:
         lines = file.readlines()
 
-    lines.append(f"{example_solution}")
+    lines.append(f"# P1 example solution: {example_solution}")
 
     return "".join(lines)
 
