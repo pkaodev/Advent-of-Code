@@ -1,5 +1,6 @@
 import os
 import sys
+import re
 
 current_dir = os.path.dirname(os.path.realpath(__file__))
 utils_path = os.path.join(current_dir, "../../../templates/python")
@@ -17,6 +18,39 @@ with open(input_path, "r", encoding="utf8") as file:
 def solution_1(data):
     print(data)
 
+    num_rows = len(data)
+
+    _sep_data = [
+        re.sub(r" +", ",", line).split(",")
+        for line in data
+    ]
+    print(_sep_data)
+    sep_data = []
+    for x in range (len(_sep_data)-1):
+        new_row = []
+        for y in range(len(_sep_data[0])):
+            if _sep_data[x][y] != '':
+                new_row.append(int(_sep_data[x][y]))
+        sep_data.append(new_row)
+    sep_data.append(_sep_data[-1])
+    print(sep_data)
+
+    result = 0
+
+
+    for i in range(len(sep_data[0])):
+        if sep_data[len(data)-1][0] == "+":
+            for j in range(len(data)-1):
+                result += int(sep_data[j][i])
+        else:
+            _sub_result = 1
+            for j in range(len(data)-1):
+                _sub_result *= int(sep_data[j][i])
+            result += _sub_result
+
+    # 6796089
+    # 2861975
+    print(result)
 # def solution_2(data):
 #     pass
 
